@@ -1,0 +1,14 @@
+.git
+.env
+.local
+.local-mysql
+.mysql-data
+.mysql-data-before-ascii-init
+node_modules
+data
+.preview-data
+backups
+test-results
+tests
+docs
+*.zip

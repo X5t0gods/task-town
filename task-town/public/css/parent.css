@@ -1,0 +1,167 @@
+
+  /* ===== 家长端专属 ===== */
+  .page-head{
+    padding:36px 0 8px;
+    display:flex; align-items:flex-end; justify-content:space-between;
+    gap:20px; flex-wrap:wrap;
+  }
+  .page-head h1{
+    font-size:clamp(28px, 4vw, 40px); letter-spacing:2px;
+  }
+  .page-head h1::after{
+    content:""; display:block; height:12px; margin-top:-2px; width:8.5em;
+    background:var(--cheese); border-radius:999px; opacity:.85;
+  }
+  .page-head p{ font-size:16px; opacity:.8; }
+
+  /* 左表单 + 右列表 */
+  .layout{
+    display:grid;
+    grid-template-columns:minmax(0, 5fr) minmax(0, 7fr);
+    gap:32px; align-items:start;
+    padding:28px 0 88px;
+  }
+
+  /* 发布表单：做成一张"悬赏令" */
+  .poster-form{
+    background:var(--butter);
+    border:4px solid var(--cheese);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:30px 28px;
+    position:sticky; top:24px;
+  }
+  .poster-form::before{
+    content:""; position:absolute; inset:9px;
+    border:3px dashed rgba(110,69,39,.25);
+    border-radius:calc(var(--radius) - 9px);
+    pointer-events:none;
+  }
+  .poster-form > *{ position:relative; }
+  .poster-form h2{
+    text-align:center; font-size:22px; letter-spacing:4px; margin-bottom:22px;
+  }
+
+  .field{ margin-bottom:20px; }
+  .field label{
+    display:block; font-size:16px; letter-spacing:1px; margin-bottom:8px;
+  }
+  .field input[type="text"], .field textarea{
+    width:100%; font-family:inherit; font-size:16px; color:var(--caramel);
+    background:var(--white);
+    border:3px solid rgba(110,69,39,.18);
+    border-radius:14px; padding:11px 16px;
+  }
+  .field input[type="text"]:focus, .field textarea:focus{
+    border-color:var(--sky); outline:none;
+  }
+  .field textarea{ resize:vertical; min-height:76px; }
+
+  /* 类别 chips */
+  .chips{ display:flex; flex-wrap:wrap; gap:10px; }
+  .chip{
+    font-family:inherit; font-size:15px; cursor:pointer;
+    padding:7px 18px; border-radius:999px;
+    background:var(--white); color:var(--caramel);
+    border:3px solid rgba(110,69,39,.18);
+    transition:transform .12s ease;
+  }
+  .chip:hover{ transform:translateY(-2px); }
+  .chip.on{
+    background:var(--cheese); border-color:var(--cheese-deep);
+    box-shadow:0 3px 0 var(--cheese-deep);
+  }
+
+  /* 星星步进器 */
+  .stepper{ display:flex; align-items:center; gap:16px; }
+  .stepper button{
+    width:44px; height:44px; border-radius:50%; border:none; cursor:pointer;
+    font-family:"Baloo 2",sans-serif; font-size:24px; font-weight:800;
+    background:var(--white); color:var(--caramel);
+    border:3px solid rgba(110,69,39,.18);
+    transition:transform .12s ease;
+  }
+  .stepper button:hover{ transform:translateY(-2px); border-color:var(--cheese-deep); }
+  .stepper .val{
+    min-width:88px; text-align:center;
+    font-size:30px; color:var(--coral);
+    background:var(--white); border-radius:14px;
+    border:3px dashed var(--coral); padding:2px 8px;
+  }
+
+  /* 拍照打卡开关 */
+  .switch-row{
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+  }
+  .switch{
+    position:relative; width:62px; height:34px; flex:none;
+    border:none; cursor:pointer; border-radius:999px;
+    background:rgba(110,69,39,.2);
+    transition:background .2s ease;
+  }
+  .switch::after{
+    content:""; position:absolute; top:4px; left:4px;
+    width:26px; height:26px; border-radius:50%;
+    background:var(--white);
+    box-shadow:0 2px 0 rgba(110,69,39,.2);
+    transition:left .2s ease;
+  }
+  .switch.on{ background:var(--sky); }
+  .switch.on::after{ left:32px; }
+
+  .poster-form .btn{ width:100%; margin-top:6px; font-size:20px; }
+
+  /* 右侧：任务管理 */
+  .manage h2{
+    font-size:24px; letter-spacing:2px; margin-bottom:18px;
+  }
+  .filters{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; }
+  .filter{
+    font-family:inherit; font-size:15px; cursor:pointer;
+    padding:6px 18px; border-radius:999px;
+    background:var(--white); color:var(--caramel);
+    border:3px solid transparent;
+  }
+  .filter.on{ border-color:var(--sky); background:var(--bubble); }
+
+  .mlist{ display:flex; flex-direction:column; gap:16px; }
+  .mitem{
+    background:var(--white); border-radius:20px;
+    box-shadow:var(--shadow);
+    padding:18px 22px;
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:8px 18px; align-items:center;
+    border-left:10px solid var(--cheese);
+    animation:pop .45s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  .mitem.s-doing{ border-left-color:var(--sky); }
+  .mitem.s-check{ border-left-color:var(--coral); }
+  .mitem.s-done{ border-left-color:#9CCC8F; opacity:.82; }
+  .mitem .coin2{
+    width:46px; height:46px; border-radius:50%;
+    background:var(--coral); color:#fff;
+    display:grid; place-items:center; font-size:17px;
+    border:3px solid #fff; box-shadow:0 0 0 3px var(--coral);
+    grid-row:span 2;
+  }
+  .mitem b{ font-size:18px; }
+  .mitem .meta{ font-size:13.5px; opacity:.72; }
+  .mitem .ops{ grid-row:span 2; display:flex; flex-direction:column; gap:8px; align-items:flex-end; }
+  .approve{
+    font-family:inherit; font-size:14px; cursor:pointer;
+    background:var(--coral); color:#fff; border:none;
+    border-radius:999px; padding:7px 18px;
+    box-shadow:0 3px 0 var(--coral-deep);
+    transition:transform .12s ease;
+  }
+  .approve:hover{ transform:translateY(-2px); }
+  .empty-tip{
+    text-align:center; font-size:16px; opacity:.65; padding:36px 0;
+    border:3px dashed rgba(110,69,39,.2); border-radius:20px;
+  }
+
+  @media (max-width: 900px){
+    .layout{ grid-template-columns:1fr; }
+    .poster-form{ position:static; }
+  }

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#FFF7EA">
+  <meta name="description" content="任务小镇家长端：发布任务，验收孩子的努力，兑现小愿望。">
+  <title>家长端 · 任务小镇</title><link rel="icon" href="/favicon.svg">
+  <link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/parent.css"><link rel="stylesheet" href="/css/app.css"><link rel="stylesheet" href="/css/mobile.css">
+  <script type="module" src="/js/parent.js"></script>
+</head>
+<body data-role="parent">
+<header><div class="wrap nav">
+  <a class="logo" href="/"><span class="logo-star" aria-hidden="true"></span>任务小镇</a>
+  <nav class="nav-links" aria-label="主导航"><span class="role-badge">家长端</span><a href="/kid.html">孩子入口 ↗</a><button class="text-button" id="logout" hidden>退出登录</button></nav>
+</div></header>
+<main class="wrap">
+  <div id="boot" class="empty-tip" role="status">正在连接任务小镇…</div>
+  <section id="auth" class="auth-layout" hidden>
+    <div class="auth-story"><span class="eyebrow">给每一份小努力，一颗星星</span><h1>好习惯，<br>从一个小任务开始。</h1><p>你来发布和验收，孩子自己接单、打卡，<br>让成长有约定，也有期待。</p><div class="ticket"><span class="coin num">+5</span><b>今天，自己整理书包</b><small>家长验收通过，星星才到账</small></div><p class="subtle">先创建家庭，再添加孩子账号。家长和孩子分别登录自己的页面。</p></div>
+    <div class="auth-card">
+      <div class="chips auth-tabs"><button type="button" class="chip on" data-auth="login">家长登录</button><button type="button" class="chip" data-auth="register" id="registerTab">创建家庭</button></div>
+      <form id="loginForm" class="form-stack">
+        <h2>欢迎回到任务小镇</h2>
+        <label>家长账号<input name="username" autocomplete="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9_]+" placeholder="英文字母、数字或下划线"></label>
+        <label>家长密码<input name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="至少 8 个字符"></label>
+        <p class="form-error" role="alert"></p><button class="btn btn-cheese" type="submit">进入我的家庭</button>
+      </form>
+      <form id="registerForm" class="form-stack" hidden>
+        <h2>开一间属于你们的小镇</h2>
+        <label>家庭名称<input name="familyName" required maxlength="30" placeholder="例如：小宝的快乐星球"></label>
+        <label>家长称呼<input name="displayName" required maxlength="24" placeholder="例如：妈妈"></label>
+        <label>家长账号<input name="username" autocomplete="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9_]+" placeholder="英文字母、数字或下划线"></label>
+        <label>设置密码<input name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="128" placeholder="至少 8 个字符，请妥善保管"></label>
+        <p class="form-error" role="alert"></p><button class="btn btn-coral" type="submit">创建我的家庭</button>
+      </form>
+    </div>
+  </section>
+
+  <div id="app" hidden>
+    <div class="page-head"><div><span class="eyebrow" id="parentGreeting"></span><h1 id="familyTitle">我的家庭</h1><p>把小事变成冒险，把努力变成星星。</p></div><div class="connection" id="connection" role="status">正在同步…</div></div>
+    <div class="stat-grid" id="stats"></div>
+    <div class="app-tabs" role="tablist" aria-label="家长功能">
+      <button class="app-tab on" role="tab" aria-selected="true" data-panel="tasks">📌 悬赏管理</button>
+      <button class="app-tab" role="tab" aria-selected="false" data-panel="review">✨ 任务验收 <span id="reviewCount" class="count"></span></button>
+      <button class="app-tab" role="tab" aria-selected="false" data-panel="rewards">🎁 愿望与兑现</button>
+      <button class="app-tab" role="tab" aria-selected="false" data-panel="family">🏡 家庭设置</button>
+      <button class="app-tab" role="tab" aria-selected="false" data-panel="ledger">⭐ 星星记录</button>
+    </div>
+
+    <section data-view="tasks" class="view">
+      <div class="notice" id="firstChildNotice" hidden>欢迎来到任务小镇！先到「家庭设置」添加一个孩子，再发布第一张悬赏令。<button type="button" class="text-button" data-go="family">去添加 →</button></div>
+      <div class="layout">
+        <form class="poster-form form-stack" id="taskForm">
+          <button type="button" class="icon-button task-close" data-close-task aria-label="关闭发布表单">×</button><h2 id="taskFormTitle">— 写一张悬赏令 —</h2>
+          <label>发给哪位小英雄<select name="childId" id="taskChild" required></select></label>
+          <label>任务名称<input name="title" required maxlength="40" placeholder="例如：收拾自己的玩具角"></label>
+          <label>任务类别<select name="category"><option>家务小帮手</option><option>自理小达人</option><option>学习小标兵</option><option>运动小健将</option><option>爱心小天使</option></select></label>
+          <label>悬赏星星<div class="stepper"><button type="button" data-step="-1" aria-label="减少星星">−</button><input class="star-input num" name="reward" type="number" value="5" min="1" max="1000" required aria-label="悬赏星星数量"><span>⭐</span><button type="button" data-step="1" aria-label="增加星星">＋</button></div></label>
+          <label>重复方式<select name="recurrence" id="recurrence"><option value="once">一次任务</option><option value="daily">每天可接 · 每天一次</option></select></label>
+          <label id="dueField">截止时间（选填）<input type="datetime-local" name="dueAt"><small class="subtle">不设置表示随时可接。已接任务仍可提交，由你验收。</small></label>
+          <label class="checkbox-row"><input type="checkbox" name="photoRequired">完成后需要拍照打卡</label>
+          <label>给孩子的话（选填）<textarea name="description" maxlength="500" placeholder="例如：把玩具放回黄色箱子，地上一个都不留。"></textarea></label>
+          <p class="form-error" role="alert"></p><button class="btn btn-coral" id="publishButton" type="submit">贴上悬赏板</button><button type="button" class="text-button task-cancel" data-close-task>取消发布</button>
+        </form>
+        <div class="manage"><div class="section-line"><h2>我发布的悬赏</h2><select id="childFilter" aria-label="按孩子筛选"><option value="all">所有孩子</option></select></div>
+          <div class="filters" id="taskFilters"><button class="filter on" data-filter="all">全部</button><button class="filter" data-filter="available">待接单</button><button class="filter" data-filter="claimed">进行中</button><button class="filter" data-filter="submitted">待验收</button><button class="filter" data-filter="approved">已完成</button><button class="filter" data-filter="paused">已暂停</button></div>
+          <div class="mlist" id="taskList"></div>
+        </div>
+      </div>
+    </section>
+
+    <section data-view="review" class="view" hidden><div class="section-line"><div><h2>看见每一份努力</h2><p class="subtle">核对任务要求后通过验收，星星会自动到账；需要改进时，写句话让孩子再试一次。</p></div></div><div class="review-grid" id="reviewList"></div></section>
+
+    <section data-view="rewards" class="view" hidden>
+      <div class="two-columns"><form id="rewardForm" class="card form-stack"><h2>添一个小愿望</h2><label>愿望名称<input name="title" required maxlength="40" placeholder="例如：周末和爸爸一起踢球"></label><div class="form-row"><label>需要星星<input name="price" type="number" min="1" max="100000" required value="20"></label><label>愿望图标<select name="icon"><option>🎁</option><option>🍦</option><option>📺</option><option>🎡</option><option>📚</option><option>⚽</option><option>🧸</option><option>🎨</option></select></label></div><p class="form-error" role="alert"></p><button class="btn btn-cheese" type="submit">放进愿望商店</button></form><div><h2>商店里的小期待</h2><div id="rewardList" class="stack"></div></div></div>
+      <div class="section-line"><div><h2>孩子的兑换申请</h2><p class="subtle">申请时扣除星星；无法兑现时可退回，星星会原路退还。</p></div></div><div class="review-grid" id="redemptionList"></div>
+    </section>
+
+    <section data-view="family" class="view" hidden>
+      <div class="family-banner"><div><span class="eyebrow">孩子登录时需要的家庭码</span><strong id="familyCode" class="family-code num"></strong><p>在孩子设备打开孩子入口，输入家庭码、孩子账号和 6 位口令。</p></div><button type="button" class="btn btn-ghost btn-sm" id="copyCode">复制家庭码</button></div>
+      <div class="two-columns"><form id="childForm" class="card form-stack"><h2>欢迎一位小英雄</h2><label>孩子昵称<input name="displayName" required maxlength="24" placeholder="例如：小宝"></label><label>孩子账号<input name="loginName" required minlength="2" maxlength="32" pattern="[A-Za-z0-9_]+" placeholder="例如：xiaobao"></label><label>6 位数字口令<input name="pin" type="password" inputmode="numeric" autocomplete="new-password" pattern="[0-9]{6}" minlength="6" maxlength="6" required placeholder="由家长设置并告诉孩子"></label><p class="form-error" role="alert"></p><button class="btn btn-cheese" type="submit">添加孩子</button></form><div><h2>我们家的小英雄</h2><div id="childList" class="stack"></div></div></div>
+      <div class="two-columns"><form id="passwordForm" class="card form-stack"><h2>修改家长密码</h2><label>原密码<input name="currentPassword" type="password" autocomplete="current-password" required minlength="8" maxlength="128"></label><label>新密码<input name="newPassword" type="password" autocomplete="new-password" required minlength="8" maxlength="128"></label><p class="form-error" role="alert"></p><button class="btn btn-ghost" type="submit">保存新密码</button></form><div class="card"><h2>留住成长记录</h2><p>下载当前家庭的全部任务、兑换和星星流水。导出内容不包含照片原文件。</p><a class="btn btn-ghost btn-sm" href="/api/v1/parent/export" download>下载家庭记录</a></div></div>
+    </section>
+
+    <section data-view="ledger" class="view" hidden><h2>每一颗星星都有来处</h2><p class="subtle">最近 100 条变动 · 完整记录可在家庭设置中下载</p><div id="ledgerList" class="table-wrap"></div></section>
+    <button type="button" class="mobile-publish btn btn-coral" id="mobilePublish">＋ 发布任务</button>
+    <nav class="mobile-nav" aria-label="家长底部导航"><button type="button" data-go="tasks"><span aria-hidden="true">📌</span>悬赏管理</button><button type="button" data-go="review"><span aria-hidden="true">✨</span>任务验收</button><button type="button" data-go="rewards"><span aria-hidden="true">🎁</span>愿望兑现</button><button type="button" data-go="family"><span aria-hidden="true">🏡</span>家庭设置</button><button type="button" data-go="ledger"><span aria-hidden="true">⭐</span>星星记录</button></nav>
+  </div>
+</main>
+<footer><div class="wrap"><a class="logo" href="/"><span class="logo-star" aria-hidden="true"></span>任务小镇</a><p>爸妈发悬赏 · 小英雄来接单 · 星星换愿望</p></div></footer>
+<dialog id="taskDialog" aria-labelledby="taskFormTitle"><div id="mobileTaskMount"></div></dialog>
+<dialog id="actionDialog" aria-labelledby="dialogTitle"><form id="actionForm" class="form-stack"><div class="section-line"><h2 id="dialogTitle"></h2><button type="button" class="icon-button" data-close aria-label="关闭">×</button></div><div id="dialogFields"></div><p class="form-error" role="alert"></p><button class="btn btn-coral" type="submit" id="dialogSubmit">确认</button><button class="text-button" type="button" data-close>取消</button></form></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<noscript><p class="empty-tip">请启用 JavaScript 后使用任务小镇。</p></noscript>
+</body></html>

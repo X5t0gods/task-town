@@ -1,0 +1,23 @@
+{
+  "name": "task-town",
+  "version": "1.0.0",
+  "private": true,
+  "description": "任务小镇：家长发布任务、孩子赚星星的家庭习惯平台",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --watch server.mjs",
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "demo": "node scripts/demo.mjs",
+    "backup": "node scripts/backup.mjs",
+    "check": "node scripts/check.mjs",
+    "setup:local": "node scripts/local-mysql.mjs",
+    "db:stop": "node scripts/local-mysql.mjs stop"
+  },
+  "dependencies": {
+    "mysql2": "^3.24.6"
+  }
+}

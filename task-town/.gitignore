@@ -1,0 +1,14 @@
+node_modules/
+.env
+data/
+.preview-data/
+backups/
+*.sqlite*
+*.db*
+test-results/
+.mysql-data/
+.mysql-data-*/
+.local/
+.local-mysql/
+*.sql
+!database/schema.sql

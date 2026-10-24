@@ -1,0 +1,185 @@
+/* ============================================================
+   任务小镇 · 共享样式
+   配色：奶油底 / 奶酪黄(主) / 海绵天空蓝(辅) / 珊瑚橘(仅悬赏与CTA) / 焦糖棕(文字)
+   ============================================================ */
+
+:root{
+  --cream:   #FFF7EA;
+  --cheese:  #FFD45E;
+  --cheese-deep: #DBAF3B;
+  --sky:     #7CC6E8;
+  --sky-deep:#5AA6C8;
+  --coral:   #FF7A5C;
+  --coral-deep: #D95B3E;
+  --caramel: #6E4527;
+  --butter:  #FFF1C9;
+  --bubble:  #E4F4FB;
+  --white:   #FFFFFF;
+  --shadow:  0 6px 0 rgba(110, 69, 39, .10);
+  --radius:  26px;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:"ZCOOL KuaiLe","Baloo 2","PingFang SC","Microsoft YaHei",sans-serif;
+  background:var(--cream);
+  color:var(--caramel);
+  line-height:1.7;
+  overflow-x:hidden;
+}
+
+.num{ font-family:"Baloo 2","ZCOOL KuaiLe",sans-serif; font-weight:800; }
+
+.wrap{ max-width:1120px; margin:0 auto; padding:0 24px; }
+
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+  outline:3px dashed var(--coral);
+  outline-offset:3px;
+  border-radius:8px;
+}
+
+/* ---------- 顶栏 ---------- */
+header{ padding:20px 0; position:relative; z-index:10; }
+
+.nav{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px; flex-wrap:wrap;
+}
+
+.logo{
+  display:flex; align-items:center; gap:10px;
+  font-size:26px; letter-spacing:2px; text-decoration:none; color:var(--caramel);
+}
+.logo-star{
+  width:38px; height:38px; flex:none;
+  background:var(--cheese);
+  clip-path:polygon(50% 0%,63% 35%,100% 38%,71% 60%,81% 100%,50% 75%,19% 100%,29% 60%,0% 38%,37% 35%);
+  filter:drop-shadow(0 3px 0 rgba(110,69,39,.18));
+}
+
+.nav-links{ display:flex; gap:26px; align-items:center; flex-wrap:wrap; }
+.nav-links a{
+  color:var(--caramel); text-decoration:none; font-size:17px;
+  border-bottom:3px solid transparent; padding-bottom:2px;
+}
+.nav-links a:hover{ border-bottom-color:var(--cheese); }
+.nav-links a.active{ border-bottom-color:var(--cheese); }
+
+/* 身份徽章：告诉访客当前在哪个端 */
+.role-badge{
+  font-size:14px; letter-spacing:2px;
+  padding:5px 16px; border-radius:999px;
+  border:3px dashed var(--sky); background:var(--white);
+}
+
+/* ---------- 按钮 ---------- */
+.btn{
+  display:inline-block; border:none; cursor:pointer;
+  font-family:inherit; font-size:18px; letter-spacing:1px;
+  padding:13px 30px; border-radius:999px; text-decoration:none;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.btn-coral{
+  background:var(--coral); color:#fff;
+  box-shadow:0 5px 0 var(--coral-deep);
+}
+.btn-coral:hover{ transform:translateY(-2px); box-shadow:0 7px 0 var(--coral-deep); }
+.btn-coral:active{ transform:translateY(3px); box-shadow:0 2px 0 var(--coral-deep); }
+
+.btn-cheese{
+  background:var(--cheese); color:var(--caramel);
+  box-shadow:0 5px 0 var(--cheese-deep);
+}
+.btn-cheese:hover{ transform:translateY(-2px); box-shadow:0 7px 0 var(--cheese-deep); }
+.btn-cheese:active{ transform:translateY(3px); box-shadow:0 2px 0 var(--cheese-deep); }
+
+.btn-ghost{
+  background:var(--white); color:var(--caramel);
+  border:3px dashed var(--sky); box-shadow:var(--shadow);
+}
+.btn-ghost:hover{ transform:translateY(-2px) rotate(-1deg); }
+
+.btn-sm{ font-size:16px; padding:9px 22px; }
+
+/* ---------- 波浪分隔 ---------- */
+.wave{ display:block; width:100%; height:70px; }
+
+/* ---------- 分区标题 ---------- */
+.sec-head{ text-align:center; margin-bottom:48px; }
+.sec-head h2{
+  font-size:clamp(28px, 3.6vw, 40px); letter-spacing:3px;
+  display:inline-block; position:relative; padding:0 8px;
+}
+.sec-head h2::after{
+  content:""; display:block; height:12px; margin-top:-4px;
+  background:var(--cheese); border-radius:999px; opacity:.85;
+}
+.sec-sky .sec-head h2::after{ background:var(--white); }
+.sec-head p{ margin-top:10px; font-size:17px; }
+
+/* ---------- 页脚 ---------- */
+footer{ padding:44px 0 34px; text-align:center; font-size:15px; }
+footer .logo{ justify-content:center; margin-bottom:12px; font-size:22px; }
+footer p{ opacity:.75; }
+
+/* ---------- 提示条（Toast） ---------- */
+.toast{
+  position:fixed; left:50%; bottom:36px; transform:translateX(-50%) translateY(80px);
+  background:var(--caramel); color:var(--cream);
+  font-size:17px; letter-spacing:1px;
+  padding:13px 30px; border-radius:999px;
+  box-shadow:0 8px 24px rgba(110,69,39,.3);
+  opacity:0; pointer-events:none; z-index:99;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1), opacity .3s ease;
+}
+.toast.show{ transform:translateX(-50%) translateY(0); opacity:1; }
+
+/* ---------- 悬赏令贴纸卡（共享组件） ---------- */
+.ticket{
+  position:relative;
+  background:var(--white);
+  border:3px dashed var(--caramel);
+  border-radius:18px;
+  padding:14px 18px 14px 60px;
+  box-shadow:0 4px 0 rgba(110,69,39,.12);
+}
+.ticket .coin{
+  position:absolute; left:14px; top:50%; transform:translateY(-50%);
+  width:34px; height:34px; border-radius:50%;
+  background:var(--coral); color:#fff;
+  display:grid; place-items:center;
+  font-size:15px;
+  border:3px solid #fff;
+  box-shadow:0 0 0 3px var(--coral);
+}
+.ticket b{ font-size:18px; display:block; }
+.ticket small{ font-size:14px; opacity:.75; }
+
+/* ---------- 状态小药丸 ---------- */
+.pill{
+  display:inline-block; font-size:13px; letter-spacing:1px;
+  padding:3px 14px; border-radius:999px;
+}
+.pill-wait{ background:var(--butter); color:var(--caramel); }        /* 待接单 */
+.pill-doing{ background:var(--bubble); color:#2E7FA3; border:2px solid var(--sky); } /* 进行中 */
+.pill-check{ background:#FFE4DB; color:var(--coral-deep); border:2px solid var(--coral); } /* 待验收 */
+.pill-done{ background:#E7F3E4; color:#4C8A3F; border:2px solid #9CCC8F; } /* 已完成 */
+
+/* ---------- 入场动效（只此一次编排） ---------- */
+@keyframes pop{
+  from{ opacity:0; transform:translateY(18px) scale(.96); }
+  to{ opacity:1; transform:translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; }
+  html{ scroll-behavior:auto; }
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 600px){
+  .nav-links{ gap:16px; }
+}
